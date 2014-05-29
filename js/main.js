@@ -24,18 +24,16 @@
   }
 
   function calculateTotal(){
-    var total = 0;
+  var total = 0;
     $("select > option:selected").each(function(){
       var $qty = $(this).text();
-      if ($qty > 0){
         var $cost = ($(this).closest("tr").find(".cost").text());
         var cost = $cost.replace("$", "");
         cost *= 1;
         var cartItemTotal = $qty * cost
-        total = cartItemTotal;
-        console.log(cartItemTotal);
-      }
+        total += cartItemTotal;
     });
+    console.log(total);
     $("#total").text(total);
     return total;
   }
