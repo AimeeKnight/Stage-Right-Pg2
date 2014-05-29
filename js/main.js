@@ -24,30 +24,20 @@
   }
 
   function calculateTotal(){
-
-    var $paymentOption = $("#payment_option").find(":selected").val();
-    var $quantity = $("input[name=quantity]").val();
-    if($quantity == "" && $paymentOption != "none") {
-	$("input[name=quantity]").val("1");
-    }
-    var $total = 0
-
-    if ($paymentOption === "pay_in_full") {
-      $total = 225
-
-      if ($quantity > 0) {
-        $total =  $total * $quantity
-      };
-    } else if ($paymentOption === "pay_deposit") {
-      $total = 125
-
-      if ($quantity > 0) {
-        $total =  $total * $quantity
-      };
-    };
-
-    $("#total").text($total);
-    return $total
+    var total = 0;
+    $("select > option:selected").each(function(){
+      var $qty = $(this).text();
+      if ($qty > 0){
+        var $cost = ($(this).closest("tr").find(".cost").text());
+        var cost = $cost.replace("$", "");
+        cost *= 1;
+        var cartItemTotal = $qty * cost
+        total = cartItemTotal;
+        console.log(cartItemTotal);
+      }
+    });
+    $("#total").text(total);
+    return total;
   }
 
   function buildUrl(){
