@@ -11,26 +11,69 @@
     $("input, select").change(getClassTotal);
     $("input, select").change(calculateTotal);
     $("#submit").click(buildUrl);
-    console.log(monthsRemaining());
+    console.log(monthsOff());
   }
 
   function monthsRemaining(){
+    var endDate = new Date(2015, 4, 24);
     var registration = new Date(2014, 7, 24);
-    var today = new Date();
+
+    var today = new Date(2015, 4, 25);
     var registrationMonth = registration.getMonth();
     var registrationDay = registration.getDate();
     var currentMonth = today.getMonth();
     var currentDay = today.getDate();
-    var remainingMonths = registrationMonth - currentMonth;
     console.log(registrationMonth);
     console.log(currentMonth);
     console.log(registrationDay);
     console.log(currentDay);
-    if (today > registration){
-    
+    if (today > registration && today < endDate){
+        if (currentDay > 24){
+          var remainingMonths = currentMonth - registrationMonth;
+        }else{
+          var remainingMonths = (currentMonth - registrationMonth) - 1;
+        }
+    }else{
+      var remainingMonths = 9;
     }
-  
     return remainingMonths;
+  }
+
+  function monthsOff(){
+    var monthCalculation = monthsRemaining();
+    console.log(monthCalculation);
+    switch (monthCalculation) {
+      case 0:
+        var $costTd = $("#jazz-4-cost").text("$156");
+        return 1;
+      case 1:
+        var $costTd = $("#jazz-4-cost").text("$137");
+        return 2;
+      case 2:
+        var $costTd = $("#jazz-4-cost").text("$118");
+        return 3;
+      case 3:
+        var $costTd = $("#jazz-4-cost").text("$99");
+        return 4;
+      case 4:
+        var $costTd = $("#jazz-4-cost").text("$80");
+        return 5;
+      case -7:
+        var $costTd = $("#jazz-4-cost").text("$61");
+        return 6;
+      case -6:
+        var $costTd = $("#jazz-4-cost").text("$42");
+        return 7;
+      case -5:
+        var $costTd = $("#jazz-4-cost").text("$23");
+        return 8;
+      case -4:
+        var $costTd = $("#jazz-4-cost").text("$4");
+        return 9;
+      default:
+        var $costTd = $("#jazz-4-cost").text("$175");
+        return 0;
+    }
   }
 
   function addJazz4ToCost(){
