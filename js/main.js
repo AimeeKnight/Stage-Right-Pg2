@@ -9,31 +9,24 @@
     $(document).foundation();
     $("#submit").click(buildUrl);
     $("input, select").change(calculateTheatreExperience);
+    $("input, select").change(getClassTotal);
     $("input, select").change(calculateTotal);
   }
 
   function calculateTotal(){
-  var total = 0;
-    $("select > option:selected").each(function(){
-      var $qty = $(this).text();
+    var total = 0;
+    $('input:checkbox:checked').each(function(){
       var $cost = ($(this).closest("tr").find(".cost").text());
       var cost = $cost.replace("$", "");
       cost *= 1;
-      var cartItemTotal = $qty * cost
-      total += cartItemTotal;
+      total += cost;
     });
     $("#total").text(total);
     return total;
   }
 
   function getClassTotal(){
-    var total = 0;
-    $("select > option:selected").each(function(){
-    var $qty = $(this).text() * 1;
-      if ($qty > 0){
-        total ++;
-      }
-    });
+    var total = $('input:checkbox:checked').length;
     console.log(total);
     return total;
   }
@@ -65,21 +58,17 @@
   }
 
   function buildCart(url){
-    $("select > option:selected").each(function(){
-      var $qty = $(this).text() *1;
-      if ($qty > 0){
-        items ++;
-        var $product_id = $(this).closest("tr").find("td").first().attr('id');
-        var $description = $(this).closest("tr").find("td").first().text();
-        var $amount = ($(this).closest("tr").find(".cost").text());
-        var amount = $amount.replace("$", "");
-        amount *= 1;
-        var $quantity = $(this).text();
-        url += "&cart[items]["+items+"][desc]="+$description;
-        url += "&cart[items]["+items+"][amount]="+amount;
-        url += "&cart[items]["+items+"][product_id]="+$product_id;
-        url += "&cart[items]["+items+"][quantity]="+$quantity;
-      }
+    $('input:checkbox:checked').each(function(){
+      items ++;
+      var $product_id = $(this).attr("name");
+      var $description = $(this).closest("tr").find("td").first().text();
+      var $amount = ($(this).closest("tr").find(".cost").text());
+      var amount = $amount.replace("$", "");
+      amount *= 1;
+      url += "&cart[items]["+items+"][desc]="+$description;
+      url += "&cart[items]["+items+"][amount]="+amount;
+      url += "&cart[items]["+items+"][product_id]="+$product_id;
+      url += "&cart[items]["+items+"][quantity]=1";
     });
     return url;
   }
