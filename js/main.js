@@ -11,6 +11,26 @@
     $("input, select").change(getClassTotal);
     $("input, select").change(calculateTotal);
     $("#submit").click(buildUrl);
+    console.log(monthsRemaining());
+  }
+
+  function monthsRemaining(){
+    var registration = new Date(2014, 7, 24);
+    var today = new Date();
+    var registrationMonth = registration.getMonth();
+    var registrationDay = registration.getDate();
+    var currentMonth = today.getMonth();
+    var currentDay = today.getDate();
+    var remainingMonths = registrationMonth - currentMonth;
+    console.log(registrationMonth);
+    console.log(currentMonth);
+    console.log(registrationDay);
+    console.log(currentDay);
+    if (today > registration){
+    
+    }
+  
+    return remainingMonths;
   }
 
   function addJazz4ToCost(){
