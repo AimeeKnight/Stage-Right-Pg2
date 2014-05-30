@@ -12,19 +12,6 @@
     $("input, select").change(calculateTotal);
   }
 
-  function getNames(){
-    var names = [];
-    var $names = $("input[name=names]");
-    $names.each(function(index, name){
-      name = $(name).val();
-      if (name){
-        names.push(name);
-      }
-    });
-    names.join();
-    return names;
-  }
-
   function calculateTotal(){
   var total = 0;
     $("select > option:selected").each(function(){
@@ -98,15 +85,10 @@
   }
 
   function buildUrl(){
-    var names = getNames();
+    var $name = $("input[name=name]").val();
     var url = "https://rcsf.trail-staging.us/widget?campaign_id=2834&schedule=0&success_url=http%3A//www.rochesterchristianschool.org/&cart[desc]=Camp"
     var $assistance = $("#assistance").is(":checked")
     url = buildCart(url);
-
-    if (names.length !== 0) {
-      items ++;
-      url += "&cart[items]["+items+"][notes]="+names;
-    }
 
     if ($assistance) {
       items ++;
@@ -115,6 +97,11 @@
       url += "&cart[items]["+items+"][product_id]=payment_assistance";
       url += "&cart[items]["+items+"][quantity]=0";
     };
+
+    if ($name !== "") {
+      items ++;
+      url += "&cart[items]["+items+"][notes]="+$name;
+    }
 
     //window.location.href = url;
     console.log(url);
