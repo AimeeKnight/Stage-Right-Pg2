@@ -7,14 +7,28 @@
 
   function initialize(){
     $(document).foundation();
-    $("#submit").click(buildUrl);
     $("input, select").change(calculateTheatreExperience);
     $("input, select").change(getClassTotal);
     $("input, select").change(calculateTotal);
+    $("#submit").click(buildUrl);
   }
+
+  function addJazz4ToCost(){
+    var $costTd = $("#jazz-4-cost");
+    var $jazz4Selected = $("select.jazz-4 > option:selected");
+    if ($jazz4Selected.val() === "none"){
+      $costTd.text("$175");
+    }else{
+      $costTd.text("$200");
+      return 210;
+    }
+  }
+
+
 
   function calculateTotal(){
     var total = 0;
+    total += addJazz4ToCost();
     $('input:checkbox:checked').each(function(){
       var $cost = ($(this).closest("tr").find(".cost").text());
       var cost = $cost.replace("$", "");
