@@ -7,7 +7,9 @@
   function initialize(){
     $(document).foundation();
     $("#submit").click(buildUrl);
+    $("input, select").change(calculateTheatreExperience);
     $("input, select").change(calculateTotal);
+    $("input, select").change(buildCart);
   }
 
   function getNames(){
@@ -27,25 +29,69 @@
   var total = 0;
     $("select > option:selected").each(function(){
       var $qty = $(this).text();
-        var $cost = ($(this).closest("tr").find(".cost").text());
-        var cost = $cost.replace("$", "");
-        cost *= 1;
-        var cartItemTotal = $qty * cost
-        total += cartItemTotal;
+      var $cost = ($(this).closest("tr").find(".cost").text());
+      var cost = $cost.replace("$", "");
+      cost *= 1;
+      var cartItemTotal = $qty * cost
+      total += cartItemTotal;
     });
-    console.log(total);
     $("#total").text(total);
     return total;
+  }
+
+  function getClassTotal(){
+    var total = 0;
+    $("select > option:selected").each(function(){
+    var $qty = $(this).text() * 1;
+      if ($qty > 0){
+        total ++;
+      }
+    });
+    console.log(total);
+    return total;
+  }
+  
+  function calculateTheatreExperience(){
+    var $costTd = $("#per-class-cost");
+    var totalClasses = getClassTotal();
+    if (totalClasses <= 5){
+      switch (totalClasses) {
+        case 1:
+          $costTd.text("$130");
+          break;
+        case 2:
+          $costTd.text("$100");
+          break;
+        case 3:
+          $costTd.text("$90");
+          break;
+        case 4:
+          $costTd.text("$80");
+          break;
+        case 5:
+          $costTd.text("$70");
+          break;
+        default:
+          $costTd.text("$130");
+      }
+    }
+  }
+  
+  function buildCart(){
+    $("select > option:selected").each(function(){
+      var $qty = $(this).text() *1;
+      if ($qty > 0){
+        var product_id = $(this).closest("tr").find("td").first().text();
+        console.log(product_id);
+      } 
+    });
   }
 
   function buildUrl(){
     var items = 0;
     var names = getNames();
     var url = "https://rcsf.trail-staging.us/widget?campaign_id=2834&schedule=0&success_url=http%3A//www.rochesterchristianschool.org/&cart[desc]=Camp"
-
-    var $paymentOption = $("#payment_option").find(":selected").val();
     var $assistance = $("#assistance").is(":checked")
-    var $quantity = parseInt($("input[name=quantity]").val());
 
     if ($paymentOption === "pay_in_full") {
       url += "&cart[items]["+items+"][desc]=Child+Payment";
