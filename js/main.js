@@ -16,15 +16,23 @@
   function addJazz4ToCost(){
     var $costTd = $("#jazz-4-cost");
     var $jazz4Selected = $("select.jazz-4 > option:selected");
+    var $amount = $jazz4Selected.closest("tr").find(".cost");
+    $amount.text("$210");
+    var $cost = $jazz4Selected.closest("tr").find(".cost").text();
+    var cost = $cost.replace("$", "");
+    cost *= 1;
     if ($jazz4Selected.val() === "none"){
       $costTd.text("$175");
-    }else{
+      return 0;
+    }else if ($jazz4Selected.val() === "both"){
+      $amount.text("$420");
+      $costTd.text("$200");
+      return 420;
+    }else {
       $costTd.text("$200");
       return 210;
     }
   }
-
-
 
   function calculateTotal(){
     var total = 0;
@@ -98,7 +106,7 @@
       url += "&cart[items]["+items+"][amount]=0";
       url += "&cart[items]["+items+"][desc]=Assistance";
       url += "&cart[items]["+items+"][product_id]=payment_assistance";
-      url += "&cart[items]["+items+"][quantity]=0";
+      url += "&cart[items]["+items+"][quantity]=1";
     };
 
     if ($name !== "") {
