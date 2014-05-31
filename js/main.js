@@ -198,8 +198,8 @@
         var $amount = ($(this).closest("tr").find(".cost").text());
         var amount = $amount.replace("$", "");
         amount *= 1;
-        url += "&cart[items]["+items+"][desc]="+$description;
         url += "&cart[items]["+items+"][amount]="+amount;
+        url += "&cart[items]["+items+"][desc]="+$description;
         url += "&cart[items]["+items+"][product_id]="+$product_id;
         url += "&cart[items]["+items+"][quantity]=1";
       }
