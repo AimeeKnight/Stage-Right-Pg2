@@ -226,9 +226,10 @@
       url += "&cart[items]["+items+"][notes]="+$name;
     }
 
-   if (items > 0){
-     //window.location.href = url;
-    alert(url);
+    if (items > 0){
+      //window.location.href = url;
+      alert(url);
+    }
   }
 
 })();
