@@ -71,10 +71,10 @@
   }
 
   function addJazz4ToCost(){
-    $amount.text("$210");
     var $costTd = $("#jazz-4-cost");
     var $jazz4Selected = $("select.jazz-4 > option:selected");
     var $amount = $jazz4Selected.closest("tr").find(".cost");
+    $amount.text("$210");
     var $cost = $jazz4Selected.closest("tr").find(".cost").text();
     var cost = $cost.replace("$", "");
     cost *= 1;
@@ -153,7 +153,6 @@
     if ($("input[name=14_pre_school_voice]").is(":checked")){
       preItems ++;
     }
-    console.log(preItems);
     return preItems;
   }
 
