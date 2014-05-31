@@ -22,10 +22,6 @@
     var registrationDay = registration.getDate();
     var currentMonth = today.getMonth();
     var currentDay = today.getDate();
-    //console.log(registrationMonth);
-    //console.log(currentMonth);
-    //console.log(registrationDay);
-    //console.log(currentDay);
     if (today > registration && today < endDate){
         if (currentDay > 24){
           var remainingMonths = currentMonth - registrationMonth;
@@ -40,7 +36,6 @@
 
   function monthsOff(){
     var monthCalculation = monthsRemaining();
-    //console.log(monthCalculation);
     switch (monthCalculation) {
       case 0:
         var $costTd = $("#jazz-4-cost").text("$156");
@@ -76,17 +71,17 @@
   }
 
   function addJazz4ToCost(){
+    $amount.text("$210");
     var $costTd = $("#jazz-4-cost");
     var $jazz4Selected = $("select.jazz-4 > option:selected");
     var $amount = $jazz4Selected.closest("tr").find(".cost");
-    $amount.text("$210");
     var $cost = $jazz4Selected.closest("tr").find(".cost").text();
     var cost = $cost.replace("$", "");
     cost *= 1;
     if ($jazz4Selected.val() === "none"){
       $costTd.text("$175");
       return 0;
-    }else if ($jazz4Selected.val() === "both"){
+    }else if ($jazz4Selected.text() === "Both"){
       $amount.text("$420");
       $costTd.text("$200");
       return 420;
@@ -213,6 +208,19 @@
     var $assistance = $("#assistance").is(":checked");
     url = buildCart(url);
 
+    var $jazz4Selected = $("select.jazz-4 > option:selected");
+    if ($jazz4Selected.val() !== "none"){
+      var $amount = $jazz4Selected.closest("tr").find(".cost").text();
+      var amount = $amount.replace("$", "");
+      amount *= 1;
+      var $jazz4_id = $("select.jazz-4 > option:selected").attr('id');
+
+      items ++;
+      url += "&cart[items]["+items+"][amount]="+amount;
+      url += "&cart[items]["+items+"][desc]="+$jazz4Selected.val();
+      url += "&cart[items]["+items+"][product_id]="+$jazz4_id;
+      url += "&cart[items]["+items+"][quantity]=1";
+    }
     if ($assistance) {
       items ++;
       url += "&cart[items]["+items+"][amount]=0";
@@ -220,13 +228,11 @@
       url += "&cart[items]["+items+"][product_id]=payment_assistance";
       url += "&cart[items]["+items+"][quantity]=1";
     }
-
     if ($name !== "") {
       items ++;
       url += "&cart[items]["+items+"][notes]="+$name;
     }
-
-    if (items > 0){
+    if ($('#total').text() > 0){
       //window.location.href = url;
       alert(url);
     }
