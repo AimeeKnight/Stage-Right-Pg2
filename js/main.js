@@ -226,7 +226,8 @@
       url += "&cart[items]["+items+"][notes]="+$name;
     }
 
-    //window.location.href = url;
+   if (items > 0){
+     //window.location.href = url;
     alert(url);
   }
 
