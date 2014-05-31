@@ -97,6 +97,7 @@
   }
 
   function calculateTotal(){
+    updatePreSchool();
     var total = 0;
     total += addJazz4ToCost();
     $('input:checkbox:checked').each(function(){
@@ -144,6 +145,48 @@
           $costTd.text("$130");
       }
     }
+  }
+
+  function calculatePreSchool(){
+    var preItems = 0;
+    if ($("input[name=14_pre_school_jazz]").is(":checked")){
+      preItems ++;
+    }
+    if ($("input[name=14_pre_school_acting]").is(":checked")){
+      preItems ++;
+    }
+    if ($("input[name=14_pre_school_voice]").is(":checked")){
+      preItems ++;
+    }
+    console.log(preItems);
+    return preItems;
+  }
+
+  function updatePreSchool(){
+    var $preImagination = $("input[name=14_pre_school_imagination_workshop]");
+    if ($preImagination.is(":checked")){
+      var items = calculatePreSchool();
+      var $cost = $preImagination.closest("tr").find(".cost");
+      var $amount = $preImagination.closest("tr").find(".cost").text();
+      var cost = $amount.replace("$", "");
+      cost *= 1;
+      switch (items) {
+        case 1:
+          cost -= 5
+          $cost.text("$"+cost);
+          break;
+        case 2:
+          cost -= 15
+          $cost.text("$"+cost);
+          break;
+        case 3:
+          cost -= 10
+          $cost.text("$"+cost);
+          break;
+        default:
+          $cost.text("$125");
+       }
+     }
   }
 
   function buildCart(url){
