@@ -35,44 +35,58 @@
   }
 
   function monthsOff(){
-    alert("hi");
     var monthCalculation = monthsRemaining();
     switch (monthCalculation) {
       case 0:
-        var $costTd = $("#jazz-4-cost").text("$156");
+        $("#jazz-4-cost").text("$156");
+        $("#monthly").text("$156");
         return 1;
       case 1:
-        var $costTd = $("#jazz-4-cost").text("$137");
+        $("#jazz-4-cost").text("$137");
+        $("#monthly").text("$137");
         return 2;
       case 2:
-        var $costTd = $("#jazz-4-cost").text("$118");
+        $("#jazz-4-cost").text("$118");
+        $("#monthly").text("$118");
         return 3;
       case 3:
-        var $costTd = $("#jazz-4-cost").text("$99");
+        $("#jazz-4-cost").text("$99");
+        $("#monthly").text("$99");
         return 4;
       case 4:
-        var $costTd = $("#jazz-4-cost").text("$80");
+        $("#jazz-4-cost").text("$80");
+        $("#monthly").text("$80");
         return 5;
       case -7:
-        var $costTd = $("#jazz-4-cost").text("$61");
+        $("#jazz-4-cost").text("$61");
+        $("#monthly").text("$61");
         return 6;
       case -6:
-        var $costTd = $("#jazz-4-cost").text("$42");
+        $("#jazz-4-cost").text("$42");
+        $("#monthly").text("$42");
         return 7;
       case -5:
-        var $costTd = $("#jazz-4-cost").text("$23");
+        $("#jazz-4-cost").text("$23");
+        $("#monthly").text("$23");
         return 8;
       case -4:
-        var $costTd = $("#jazz-4-cost").text("$4");
+        $("#jazz-4-cost").text("$4");
+        $("#monthly").text("$4");
         return 9;
       default:
-        var $costTd = $("#jazz-4-cost").text("$175");
+        $("#jazz-4-cost").text("$175");
+        $("#monthly").text("$175");
         return 0;
     }
   }
 
   function addJazz4ToCost(){
+    monthsOff();
     var $costTd = $("#jazz-4-cost");
+    var dynamicPrice = $costTd.text();
+    dynamicPrice = dynamicPrice.replace("$", "");
+    dynamicPrice *= 1;
+
     var $jazz4Selected = $("select.jazz-4 > option:selected");
     var $amount = $jazz4Selected.closest("tr").find(".cost");
     $amount.text("$210");
@@ -80,14 +94,14 @@
     var cost = $cost.replace("$", "");
     cost *= 1;
     if ($jazz4Selected.val() === "none"){
-      $costTd.text("$175");
+      $costTd.text("$"+dynamicPrice);
       return 0;
     }else if ($jazz4Selected.text() === "Both"){
       $amount.text("$420");
-      $costTd.text("$200");
+      $costTd.text("$"+(dynamicPrice + 25));
       return 420;
     }else {
-      $costTd.text("$200");
+      $costTd.text("$"+(dynamicPrice + 25));
       return 210;
     }
   }
