@@ -17,7 +17,7 @@
     var endDate = new Date(2015, 4, 24);
     var registration = new Date(2014, 7, 24);
 
-    var today = new Date(2015, 4, 25);
+    var today = new Date();
     var registrationMonth = registration.getMonth();
     var registrationDay = registration.getDate();
     var currentMonth = today.getMonth();
@@ -35,6 +35,7 @@
   }
 
   function monthsOff(){
+    alert("hi");
     var monthCalculation = monthsRemaining();
     switch (monthCalculation) {
       case 0:
