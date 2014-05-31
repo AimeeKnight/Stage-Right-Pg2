@@ -8,10 +8,9 @@
   function initialize(){
     $(document).foundation();
     $("input, select").change(calculateTheatreExperience);
-    $("input, select").change(getClassTotal);
     $("input, select").change(calculateTotal);
     $("#submit").click(buildUrl);
-    console.log(monthsOff());
+    monthsOff();
   }
 
   function monthsRemaining(){
@@ -23,10 +22,10 @@
     var registrationDay = registration.getDate();
     var currentMonth = today.getMonth();
     var currentDay = today.getDate();
-    console.log(registrationMonth);
-    console.log(currentMonth);
-    console.log(registrationDay);
-    console.log(currentDay);
+    //console.log(registrationMonth);
+    //console.log(currentMonth);
+    //console.log(registrationDay);
+    //console.log(currentDay);
     if (today > registration && today < endDate){
         if (currentDay > 24){
           var remainingMonths = currentMonth - registrationMonth;
@@ -41,7 +40,7 @@
 
   function monthsOff(){
     var monthCalculation = monthsRemaining();
-    console.log(monthCalculation);
+    //console.log(monthCalculation);
     switch (monthCalculation) {
       case 0:
         var $costTd = $("#jazz-4-cost").text("$156");
@@ -112,7 +111,12 @@
 
   function getClassTotal(){
     var total = $('input:checkbox:checked').length;
-    console.log(total);
+    if ($("#assistance").is(":checked")){
+      total -= 1;
+    }
+    if ($("select.jazz-4 > option:selected").val() !== "none"){
+      total ++;
+    }
     return total;
   }
 
@@ -143,25 +147,27 @@
   }
 
   function buildCart(url){
-    $('input:checkbox:checked').each(function(){
-      items ++;
-      var $product_id = $(this).attr("name");
-      var $description = $(this).closest("tr").find("td").first().text();
-      var $amount = ($(this).closest("tr").find(".cost").text());
-      var amount = $amount.replace("$", "");
-      amount *= 1;
-      url += "&cart[items]["+items+"][desc]="+$description;
-      url += "&cart[items]["+items+"][amount]="+amount;
-      url += "&cart[items]["+items+"][product_id]="+$product_id;
-      url += "&cart[items]["+items+"][quantity]=1";
+    $('input:checkbox:checked').each(function(i, checkbox){
+      if($(checkbox).attr('id') !== "assistance"){
+        items ++;
+        var $product_id = $(this).attr("name");
+        var $description = $(this).closest("tr").find("td").first().text();
+        var $amount = ($(this).closest("tr").find(".cost").text());
+        var amount = $amount.replace("$", "");
+        amount *= 1;
+        url += "&cart[items]["+items+"][desc]="+$description;
+        url += "&cart[items]["+items+"][amount]="+amount;
+        url += "&cart[items]["+items+"][product_id]="+$product_id;
+        url += "&cart[items]["+items+"][quantity]=1";
+      }
     });
     return url;
   }
 
   function buildUrl(){
     var $name = $("input[name=name]").val();
-    var url = "https://rcsf.trail-staging.us/widget?campaign_id=2834&schedule=0&success_url=http%3A//www.rochesterchristianschool.org/&cart[desc]=Camp"
-    var $assistance = $("#assistance").is(":checked")
+    var url = "https://stageright.trail-staging.us/?campaign_id=2904&schedule=1&max_times_donate=3";
+    var $assistance = $("#assistance").is(":checked");
     url = buildCart(url);
 
     if ($assistance) {
@@ -170,7 +176,7 @@
       url += "&cart[items]["+items+"][desc]=Assistance";
       url += "&cart[items]["+items+"][product_id]=payment_assistance";
       url += "&cart[items]["+items+"][quantity]=1";
-    };
+    }
 
     if ($name !== "") {
       items ++;
@@ -178,7 +184,7 @@
     }
 
     //window.location.href = url;
-    console.log(url);
+    alert(url);
   }
 
 })();
