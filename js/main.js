@@ -11,6 +11,7 @@
     $("input, select").change(calculateTotal);
     $("#submit").click(buildUrl);
     monthsOff();
+    costPerMonth(1);
   }
 
   function monthsRemaining(){
@@ -34,44 +35,69 @@
     return remainingMonths;
   }
 
+  function costPerMonth(monthsOff){
+    var discount = Math.floor(175 / 9);
+    var newTotal = 175;
+    for (var i = 0; i < monthsOff; i++){
+      newTotal = (newTotal - discount);
+    }
+    return newTotal;
+  }
+
   function monthsOff(){
+    var $theatreCombo = $("#jazz-4-cost").text();
+    var cost1 = $theatreCombo.replace("$", "");
+    cost1 *= 1;
+    var $theatre = $("#monthly").text();
+    var cost2 = $theatre.replace("$", "");
+    cost2 *= 1;
+
     var monthCalculation = monthsRemaining();
     switch (monthCalculation) {
       case 0:
-        $("#jazz-4-cost").text("$156");
-        $("#monthly").text("$156");
+        var newTotal = costPerMonth(1);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 1;
       case 1:
-        $("#jazz-4-cost").text("$137");
-        $("#monthly").text("$137");
+        var newTotal = costPerMonth(2);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 2;
       case 2:
-        $("#jazz-4-cost").text("$118");
-        $("#monthly").text("$118");
+        var newTotal = costPerMonth(3);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 3;
       case 3:
-        $("#jazz-4-cost").text("$99");
-        $("#monthly").text("$99");
+        var newTotal = costPerMonth(4);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 4;
       case 4:
-        $("#jazz-4-cost").text("$80");
-        $("#monthly").text("$80");
+        var newTotal = costPerMonth(5);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 5;
       case -7:
-        $("#jazz-4-cost").text("$61");
-        $("#monthly").text("$61");
+        var newTotal = costPerMonth(6);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 6;
       case -6:
-        $("#jazz-4-cost").text("$42");
-        $("#monthly").text("$42");
+        var newTotal = costPerMonth(7);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 7;
       case -5:
-        $("#jazz-4-cost").text("$23");
-        $("#monthly").text("$23");
+        var newTotal = costPerMonth(8);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 8;
       case -4:
-        $("#jazz-4-cost").text("$4");
-        $("#monthly").text("$4");
+        var newTotal = costPerMonth(9);
+        $("#jazz-4-cost").text("$"+newTotal);
+        $("#monthly").text("$"+newTotal);
         return 9;
       default:
         $("#jazz-4-cost").text("$175");
