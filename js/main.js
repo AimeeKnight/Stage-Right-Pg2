@@ -198,10 +198,11 @@
 
   function updatePreSchool(){
     var $preImagination = $("input[name=14_pre_school_imagination_workshop]");
+    var $cost = $preImagination.closest("tr").find(".cost");
+    $cost.text("$125");
     if ($preImagination.is(":checked")){
       var items = calculatePreSchool();
-      var $cost = $preImagination.closest("tr").find(".cost");
-      var $amount = $preImagination.closest("tr").find(".cost").text();
+      var $amount = $cost.text();
       var cost = $amount.replace("$", "");
       cost *= 1;
       switch (items) {
@@ -210,11 +211,11 @@
           $cost.text("$"+cost);
           break;
         case 2:
-          cost -= 15
+          cost -= 20
           $cost.text("$"+cost);
           break;
         case 3:
-          cost -= 10
+          cost -= 30
           $cost.text("$"+cost);
           break;
         default:
