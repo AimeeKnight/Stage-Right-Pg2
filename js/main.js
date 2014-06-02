@@ -244,7 +244,7 @@
 
   function buildUrl(){
     var $name = $("input[name=name]").val();
-    var url = "https://stageright.trail-staging.us/?campaign_id=2904&schedule=1&max_times_donate=3";
+    var url = "https://stageright.trail-staging.us/widget?campaign_id=2904&schedule=0&cart[desc]=Camps";
     var $assistance = $("#assistance").is(":checked");
     url = buildCart(url);
 
@@ -273,8 +273,8 @@
       url += "&cart[items]["+items+"][notes]="+$name;
     }
     if ($('#total').text() > 0){
-      //window.location.href = url;
-      alert(url);
+      window.location.href = url;
+      //alert(url);
     }
   }
 
