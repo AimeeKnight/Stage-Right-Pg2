@@ -11,7 +11,6 @@
     $("input, select").change(calculateTotal);
     $("#submit").click(buildUrl);
     monthsOff();
-    costPerMonth(1);
   }
 
   function monthsRemaining(){
